@@ -50,6 +50,46 @@ const addWatchs = async (req,res,next) => {
     }
 }
 
+
+const getUpdate = async (req,res,next)=>{
+    const id = req.params.id;
+    const {name,price,available} = req.body
+
+    let watchs;
+    try {
+        watchs = await Watch.findByIdAndUpdate(id,{
+            name,
+            price,
+            available
+
+        });
+        watchs=await watchs.save();
+    } catch (error) {
+        console.log(error);
+    }
+    if(!watchs){
+        return res.status(404).json({message:"No Watch found..."})
+    }
+    return res.status(200).json({watchs})
+}
+
+
+const DeleteWatchs = async (req,res,next)=>{
+    const id = req.params.id;
+    let watchs;
+    try {
+        watchs = await Watch.findByIdAndDelete(id);
+    } catch (error) {
+        console.log(error);
+    }
+    if(!watchs){
+        return res.status(404).json({message:"No Watch found..."})
+    }
+    return res.status(200).json({watchs})
+}
+
 exports.getAllWatchs=getAllWatchs
 exports.addWatchs=addWatchs
 exports.getAllwatchsbyId =getAllwatchsbyId
+exports.getUpdate=getUpdate
+exports.DeleteWatchs=DeleteWatchs

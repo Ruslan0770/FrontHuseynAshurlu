@@ -6,8 +6,9 @@ const watchsController= require('../controllers/watchs.controller')
 
 router.get('/', watchsController.getAllWatchs);
 router.post('/', watchsController.addWatchs);
-router.get('/:id', watchsController.getAllwatchsbyId)
-   
+router.get('/:id', watchsController.getAllwatchsbyId);
+router.put('/:id',watchsController.getUpdate);
+router.delete('/:id',watchsController.DeleteWatchs);
 
 
 
